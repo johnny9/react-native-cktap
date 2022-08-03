@@ -1,0 +1,3 @@
+[submodule "tap-protocol"]
+	path = tap-protocol
+	url = https://github.com/nunchuk-io/tap-protocol
