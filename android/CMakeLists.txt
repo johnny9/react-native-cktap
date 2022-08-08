@@ -19,5 +19,7 @@ add_library( # Specifies the name of the library.
              # Provides a relative path to your source file(s).
              src/main/cpp/native-lib.cpp )
 
+target_compile_features(native-lib PUBLIC cxx_std_17)
+
 add_subdirectory(../tap-protocol ${CMAKE_CURRENT_BINARY_DIR}/tap-protocol)
-target_link_libraries(native-lib PUBLIC tap-protocol)
+target_link_libraries(native-lib PUBLIC tap-protocol android log)
