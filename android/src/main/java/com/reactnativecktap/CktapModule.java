@@ -30,4 +30,9 @@ public class CktapModule extends ReactContextBaseJavaModule {
         promise.resolve(a * b);
     }
 
+    static {
+        System.loadLibrary("native-lib");
+    }
+
+    public native void cardStatus(IsoDep card);
 }
