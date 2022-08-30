@@ -2,6 +2,7 @@
   package="com.example.reactnativecktap">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.NFC" />
 
     <application
       android:name=".MainApplication"

@@ -42,6 +42,7 @@ public class CktapModule extends ReactContextBaseJavaModule implements ActivityE
     private WriteNdefRequest writeNdefRequest = null;
     private Context context;
     private WritableMap bgTag = null;
+    private Boolean isForegroundEnabled = false;
 
     private static final String ERR_CANCEL = "cancelled";
     private static final String ERR_NOT_REGISTERED = "you should requestTagEvent first";
@@ -315,6 +316,27 @@ public class CktapModule extends ReactContextBaseJavaModule implements ActivityE
             }
         }
     };
+
+    @ReactMethod
+    public void requestTechnology(ReadableArray techs, Callback callback) {
+        synchronized (this) {
+            if (!isForegroundEnabled) {
+                callback.invoke(ERR_NOT_REGISTERED);
+                return;
+            }
+
+            if (hasPendingRequest()) {
+                callback.invoke(ERR_MULTI_REQ);
+            } else {
+                techRequest = new TagTechnologyRequest(techs.toArrayList(), callback);
+            }
+        }
+    }
+
+
+    private boolean hasPendingRequest() {
+        return writeNdefRequest != null || techRequest != null;
+    }
 
     public native void cardStatus(IsoDep card);
 }
